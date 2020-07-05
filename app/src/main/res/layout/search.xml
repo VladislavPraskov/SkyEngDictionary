@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:gravity="start"
         android:padding="12dp"
-        android:text="Some word"
         android:textColor="#626262"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Some word" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

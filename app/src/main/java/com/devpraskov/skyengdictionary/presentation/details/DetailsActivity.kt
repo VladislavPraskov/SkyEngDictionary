@@ -19,10 +19,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 import com.devpraskov.skyengdictionary.R
 import com.devpraskov.skyengdictionary.models.SearchUiModel
-import com.devpraskov.skyengdictionary.utils.getColorCompat
-import com.devpraskov.skyengdictionary.utils.onClick
-import com.devpraskov.skyengdictionary.utils.statusBarColor
-import com.devpraskov.skyengdictionary.utils.visibilityGone
+import com.devpraskov.skyengdictionary.utils.*
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.activity_details.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -39,9 +36,11 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
+    lateinit var snackbar: Snackbar
     private var mediaPlayer: MediaPlayer? = MediaPlayer()
     private val viewModel: DetailsViewModel by viewModel()
     private val adapter = DetailsListAdapter()
+    var currentMeaningId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,12 +52,14 @@ class DetailsActivity : AppCompatActivity() {
 
     private fun initView() {
         val model = intent.getParcelableExtra<SearchUiModel>(MODEL)!!
+        currentMeaningId = model.meaningId
         viewModel.setHeaderLiveDat(model)
-        viewModel.loadMeanings(model.meaningId)
+        viewModel.loadMeanings(currentMeaningId)
         recyclerView?.apply {
             (itemAnimator as SimpleItemAnimator).supportsChangeAnimations = false
             adapter = this@DetailsActivity.adapter
         }
+        snackbar = Snackbar.make(mainContainer, "", Snackbar.LENGTH_LONG)
     }
 
     private fun initObservers() {
@@ -81,6 +82,7 @@ class DetailsActivity : AppCompatActivity() {
         viewModel.getMeaningsLiveData().observe(this, Observer { action ->
             when (action) {
                 is DetailsAction.Success -> {
+                    group?.show()
                     adapter.submitList(action.model.meanings)
                     definition?.text = action.model.definition
                     definition?.visibilityGone(action.model.definition.isNotEmpty())
@@ -92,7 +94,9 @@ class DetailsActivity : AppCompatActivity() {
                     frequency?.visibilityGone(action.model.meanings.isNotEmpty())
                 }
                 is DetailsAction.Error -> {
-                    Snackbar.make(mainContainer, action.error, Snackbar.LENGTH_LONG)
+                    snackbar.setText(action.error)
+                    if (!snackbar.isShown) snackbar.show()
+                    group?.hide()
                     meaningProgress?.hide()
                 }
                 is DetailsAction.Loading -> {

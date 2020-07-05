@@ -16,7 +16,9 @@ class DetailsViewModel(
 
     private val mutableLiveData = MutableLiveData<SearchUiModel>()
     fun getHeaderLiveData(): LiveData<SearchUiModel> = mutableLiveData
-    fun setHeaderLiveDat(model: SearchUiModel) { mutableLiveData.postValue(model) }
+    fun setHeaderLiveDat(model: SearchUiModel) {
+        mutableLiveData.postValue(model)
+    }
 
     private val mutableMeaningsLiveData = MutableLiveData<DetailsAction>()
     fun getMeaningsLiveData(): LiveData<DetailsAction> = mutableMeaningsLiveData

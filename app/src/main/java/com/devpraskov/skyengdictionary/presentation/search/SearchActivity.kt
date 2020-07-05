@@ -11,7 +11,10 @@ import com.devpraskov.skyengdictionary.models.SearchUiModel
 import com.devpraskov.skyengdictionary.presentation.details.DetailsActivity
 import com.devpraskov.skyengdictionary.utils.*
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_details.*
 import kotlinx.android.synthetic.main.activity_search.*
+import kotlinx.android.synthetic.main.activity_search.mainContainer
+import kotlinx.android.synthetic.main.activity_search.recyclerView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -19,6 +22,7 @@ class SearchActivity : AppCompatActivity() {
 
     private val viewModel: SearchViewModel by viewModel()
     private val adapter = SearchListAdapter(::onItemClick)
+    lateinit var snackbar: Snackbar
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +41,7 @@ class SearchActivity : AppCompatActivity() {
             setHasFixedSize(true)
             adapter = this@SearchActivity.adapter
         }
+        snackbar = Snackbar.make(mainContainer, "", Snackbar.LENGTH_LONG)
     }
 
     private fun initListeners() {
@@ -73,7 +78,8 @@ class SearchActivity : AppCompatActivity() {
                     swipeRefreshLayout?.isRefreshing = false
                 }
                 is SearchAction.Error -> {
-                    Snackbar.make(mainContainer, action.error, Snackbar.LENGTH_LONG).show()
+                    snackbar.setText(action.error)
+                    if (!snackbar.isShown) snackbar.show()
                     swipeRefreshLayout?.isRefreshing = false
                 }
                 is SearchAction.Loading -> {

@@ -3,7 +3,13 @@
 
 
     <!--Retrofit-->
-    <string name="error_connection">Проверьте своё интернет соединение</string>
-    <string name="backend_connection_error">Ошибка соединения с сервером</string>
-    <string name="unknown_error">Неизвестная ошибка</string>
+    <string name="error_connection">Check your internet connection</string>
+    <string name="backend_connection_error">Internal Server Error</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="definition">Definition:</string>
+    <string name="examples">Examples:</string>
+    <string name="meaning_title">Meaning</string>
+    <string name="frequency">Frequency</string>
+    <string name="no_results">No results</string>
+    <string name="search_word">search word</string>
 </resources>
