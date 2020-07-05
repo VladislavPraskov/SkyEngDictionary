@@ -90,6 +90,8 @@ class DetailsActivity : AppCompatActivity() {
                     definition?.text = action.model.definition
                     examples?.text = action.model.examples
                     meaningProgress?.hide()
+                    groupDefinition?.visibilityGone(action.model.definition.isNotEmpty())
+                    groupExample?.visibilityGone(action.model.examples.isNotEmpty())
                     meaning?.visibilityGone(action.model.meanings.isNotEmpty())
                     frequency?.visibilityGone(action.model.meanings.isNotEmpty())
                 }

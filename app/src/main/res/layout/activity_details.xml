@@ -29,11 +29,11 @@
             app:layout_constraintTop_toBottomOf="@+id/image" />
 
         <TextView
-            android:id="@+id/examplesTitle2"
+            android:id="@+id/examplesTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:fontFamily="sans-serif-medium"
             android:text="@string/examples"
             android:textColor="#FFFFFF"
@@ -137,7 +137,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/examplesTitle2"
+            app:layout_constraintTop_toBottomOf="@+id/examplesTitle"
             tools:text="He [got] a bicycle for his birthday.\nHe [got] a bicycle for his birthday.\nHe [got] a bicycle for his birthday." />
 
         <TextView
@@ -222,6 +222,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible"
-            app:constraint_referenced_ids="definitionTitle,examplesTitle2,divider,divider2,meaning,frequency,recyclerView" />
+            app:constraint_referenced_ids="definitionTitle,examplesTitle,divider,divider2,meaning,frequency,recyclerView" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupExample"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:constraint_referenced_ids="examplesTitle,divider2,examples" />
+
+        <androidx.constraintlayout.widget.Group
+            android:id="@+id/groupDefinition"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible"
+            app:constraint_referenced_ids="definition,divider,definitionTitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
